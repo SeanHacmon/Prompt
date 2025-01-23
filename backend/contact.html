@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts</title>
+    <style>
+        .delete-btn {
+            background-color: red;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .delete-btn:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contacts</h1>
+
+    <!-- Display the list of contacts -->
+    <ul>
+        {% for contact in contacts %}
+            <li>
+                {{ contact.first_name }} {{ contact.last_name }} - {{ contact.email }}
+                <!-- Placeholder delete button for each contact -->
+                <button class="delete-btn" onclick="confirmDelete({{ contact.id }})">Delete</button>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Delete button at the bottom -->
+    <button class="delete-btn" onclick="confirmDelete()">Delete Contact</button>
+
+    <script>
+        function confirmDelete(contactId = null) {
+            if (contactId) {
+                if (confirm("Are you sure you want to delete this contact?")) {
+                    // Make an API request to delete the contact
+                    window.location.href = `/deleteContact/${contactId}`;
+                }
+            } else {
+                alert("Delete action canceled.");
+            }
+        }
+    </script>
+</body>
+</html>
